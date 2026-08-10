@@ -82,7 +82,7 @@ class GameApp {
 
     selectGame(gameId) {
         this.currentGame = gameId;
-        this.nameGameTitle.innerText = gameId === 1 ? 'Game 1: Exact 10 Seconds' : 'Game 2: Clicker 1-100';
+        this.nameGameTitle.innerText = gameId === 1 ? 'Game 1: Exact 10 Seconds' : 'Game 2: STRIKE 100';
         this.playerNameInput.value = '';
         this.showScreen(this.nameScreen);
     }
