@@ -118,7 +118,7 @@ class GameApp {
     // GAME 1 LOGIC
     prepareGame1() {
         this.resetGameState();
-        this.g1PlayerName.innerText = this.playerName;
+        this.g1PlayerName.innerText = 'PLAYER READY: ' + this.playerName;
         this.g1Timer.innerText = '0.000';
         this.g1Score.innerText = '0.000';
         this.g1Btn.innerText = 'CLICK TO START';
@@ -174,7 +174,7 @@ class GameApp {
     // GAME 2 LOGIC
     prepareGame2() {
         this.resetGameState();
-        this.g2PlayerName.innerText = this.playerName;
+        this.g2PlayerName.innerText = 'PLAYER READY: ' + this.playerName;
         this.g2Timer.innerText = '0.000';
         this.g2Score.innerText = '0';
         this.g2Btn.innerText = 'CLICK TO START';

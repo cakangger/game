@@ -439,14 +439,11 @@ input[type="text"]:focus {
 
 /* Game Header */
 .game-header {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    right: 2rem;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
+    margin-bottom: 3rem;
 }
 
 .btn-back {
@@ -468,10 +465,17 @@ input[type="text"]:focus {
 }
 
 .player-display {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: white;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: 2px;
     text-transform: uppercase;
-    opacity: 0.8;
+}
+
+.theme-red .player-display {
+    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red-glow);
+}
+
+.theme-fire .player-display {
+    text-shadow: 0 0 10px var(--neon-fire), 0 0 20px var(--neon-fire-glow);
 }
