@@ -58,7 +58,7 @@ body {
 }
 
 .glow-title {
-    font-size: 4.5rem;
+    font-size: 7.5vw;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 4px;
@@ -74,6 +74,7 @@ body {
     margin-bottom: 0.5rem;
     text-align: center;
     animation: shine 6s linear infinite;
+    width: 100%;
 }
 
 @keyframes shine {
