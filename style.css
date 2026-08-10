@@ -530,7 +530,7 @@ input[type="text"]:focus {
 .game-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 0 3rem;
     box-sizing: border-box;
@@ -538,6 +538,9 @@ input[type="text"]:focus {
 }
 
 .btn-back {
+    position: fixed;
+    bottom: 85px;
+    left: 30px;
     background: transparent;
     color: #a0a0a0;
     border: none;
