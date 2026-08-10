@@ -8,7 +8,7 @@
     --neon-fire: #ff7b00;
     --neon-fire-glow: rgba(255, 123, 0, 0.6);
     
-    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-bg: rgba(0, 0, 0, 0.6);
     --card-border: rgba(255, 255, 255, 0.1);
 }
 
