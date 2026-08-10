@@ -6,6 +6,7 @@
     <title>Great Festival Clicker Games</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/digital-7-mono" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -14,15 +15,28 @@
             <h1 class="glow-title">Great Festival</h1>
             <p class="subtitle">Welcome to the Neon Arcade</p>
             <div class="menu-options">
-                <div class="card card-red" onclick="app.selectGame(1)">
-                    <h2>Game 1</h2>
-                    <p>10 Second Challenge</p>
-                    <div class="neon-line red"></div>
+                <div class="card-container">
+                    <div class="card card-red" onclick="app.selectGame(1)">
+                        <h2>Game 1</h2>
+                        <p>Exact 10 Seconds</p>
+                        <div class="neon-line red"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(1, true)">View Leaderboard</button>
                 </div>
-                <div class="card card-fire" onclick="app.selectGame(2)">
-                    <h2>Game 2</h2>
-                    <p>Clicker 1-100</p>
-                    <div class="neon-line fire"></div>
+                <div class="card-container">
+                    <div class="card card-fire" onclick="app.selectGame(2)">
+                        <h2>Game 2</h2>
+                        <p>Clicker 1-100</p>
+                        <div class="neon-line fire"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(2, true)">View Leaderboard</button>
+                </div>
+            </div>
+
+            <!-- Live Stats Ticker -->
+            <div class="stats-ticker-wrapper">
+                <div class="stats-ticker" id="menu-ticker">
+                    <span class="ticker-text">CONNECTING TO FESTIVAL DATABASE...</span>
                 </div>
             </div>
         </section>
@@ -37,15 +51,23 @@
             <button class="btn btn-secondary" onclick="app.showMenu()">Back to Menu</button>
         </section>
 
-        <!-- Game 1 Screen (10 Second Challenge) -->
+        <!-- Game 1 Screen (Exact 10 Seconds) -->
         <section id="game1-screen" class="screen game-screen theme-red">
-            <div class="timer-display neon-red" id="game1-timer">10.000</div>
-            <div class="score-display">Clicks: <span id="game1-score">0</span></div>
+            <div class="game-header">
+                <button class="btn-back" onclick="app.showMenu()">&#9664; Back</button>
+                <div class="player-display" id="game1-player-name">Player Name</div>
+            </div>
+            <div class="timer-display segment-timer neon-red" id="game1-timer">0.000</div>
+            <div class="score-display">Difference: <span id="game1-score">0.000</span>s</div>
             <button class="btn btn-massive btn-red-glow" id="game1-btn" onclick="app.clickGame1()">CLICK!</button>
         </section>
 
         <!-- Game 2 Screen (Clicker 1-100) -->
         <section id="game2-screen" class="screen game-screen theme-fire">
+            <div class="game-header">
+                <button class="btn-back" onclick="app.showMenu()">&#9664; Back</button>
+                <div class="player-display" id="game2-player-name">Player Name</div>
+            </div>
             <div class="timer-display neon-fire" id="game2-timer">0.000</div>
             <div class="score-display">Progress: <span id="game2-score">0</span> / 100</div>
             <button class="btn btn-massive btn-fire-glow" id="game2-btn" onclick="app.clickGame2()">CLICK!</button>
@@ -67,8 +89,12 @@
         </section>
     </div>
 
-    <!-- Firebase module logic -->
-    <script type="module" src="firebase.js"></script>
+    <!-- Firebase Compat Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Firebase configuration & initialization -->
+    <script src="firebase.js"></script>
     <!-- App Game Logic -->
     <script src="app.js"></script>
 </body>

@@ -1,31 +1,21 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    getDocs, 
-    query, 
-    orderBy, 
-    limit,
-    serverTimestamp 
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-// TODO: Replace with your actual Firebase project configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDzbfZFbZfiA0I5T-z6TEZKFjm9PP8NZB8",
+  authDomain: "game-a43da.firebaseapp.com",
+  projectId: "game-a43da",
+  storageBucket: "game-a43da.firebasestorage.app",
+  messagingSenderId: "461437277122",
+  appId: "1:461437277122:web:d36665f318d4037d7afc5b",
+  measurementId: "G-3RTB0EN9YW"
 };
 
+let db = null;
+
 // Initialize Firebase only if the user has replaced the config
-let app, db;
 try {
     if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-        app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
         console.log("Firebase initialized successfully.");
     } else {
         console.warn("Firebase config is missing. Please update firebase.js with your project credentials.");
@@ -36,11 +26,8 @@ try {
 
 /**
  * Save a player's score to Firestore
- * @param {number} gameId - 1 for Game 1, 2 for Game 2
- * @param {string} playerName - The name of the player
- * @param {number} score - Clicks (Game 1) or Time in seconds (Game 2)
  */
-export async function saveScore(gameId, playerName, score) {
+window.saveScore = async function(gameId, playerName, score) {
     if (!db) {
         console.warn("Database not initialized. Score not saved.");
         return false;
@@ -48,24 +35,22 @@ export async function saveScore(gameId, playerName, score) {
     
     try {
         const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
-        await addDoc(collection(db, collectionName), {
+        await db.collection(collectionName).add({
             name: playerName,
             score: score,
-            timestamp: serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
         return true;
     } catch (error) {
         console.error("Error adding document: ", error);
         return false;
     }
-}
+};
 
 /**
  * Get the top 10 scores for a game
- * @param {number} gameId - 1 for Game 1, 2 for Game 2
- * @returns {Promise<Array>} Array of score objects
  */
-export async function getLeaderboard(gameId) {
+window.getLeaderboard = async function(gameId) {
     if (!db) {
         console.warn("Database not initialized. Returning empty leaderboard.");
         return [];
@@ -73,18 +58,13 @@ export async function getLeaderboard(gameId) {
 
     try {
         const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
+        const sortDirection = 'asc'; // Both games want the lowest score now (closest to 10s, or lowest time)
         
-        // Game 1: higher clicks is better (descending)
-        // Game 2: lower time is better (ascending)
-        const sortDirection = gameId === 1 ? 'desc' : 'asc';
-        
-        const q = query(
-            collection(db, collectionName), 
-            orderBy('score', sortDirection), 
-            limit(10)
-        );
-        
-        const querySnapshot = await getDocs(q);
+        const querySnapshot = await db.collection(collectionName)
+            .orderBy('score', sortDirection)
+            .limit(10)
+            .get();
+            
         const scores = [];
         querySnapshot.forEach((doc) => {
             scores.push(doc.data());
@@ -95,4 +75,4 @@ export async function getLeaderboard(gameId) {
         console.error("Error getting leaderboard: ", error);
         return [];
     }
-}
+};
