@@ -116,8 +116,8 @@ class GameApp {
         osc.frequency.setValueAtTime(400, this.audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(600, this.audioCtx.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.3, this.audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.1);
         
         osc.connect(gainNode);
         gainNode.connect(this.audioCtx.destination);
@@ -136,8 +136,8 @@ class GameApp {
         osc.frequency.setValueAtTime(300, this.audioCtx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(100, this.audioCtx.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.6, this.audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioCtx.currentTime + 0.1);
         
         osc.connect(gainNode);
         gainNode.connect(this.audioCtx.destination);

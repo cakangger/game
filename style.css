@@ -434,12 +434,13 @@ input[type="text"]:focus {
 .live-board-header {
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: white;
     text-transform: uppercase;
     letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 .live-badge {
