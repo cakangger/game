@@ -953,7 +953,7 @@ input[type="text"]:focus {
 
 .striker-track {
     width: 40px;
-    height: 300px;
+    height: 500px;
     background: rgba(0, 0, 0, 0.6);
     border: 2px solid var(--neon-fire);
     border-radius: 20px;

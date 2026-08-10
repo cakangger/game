@@ -212,7 +212,7 @@ class GameApp {
                 li.style.backgroundColor = 'rgba(255, 204, 0, 0.2)';
             }
             
-            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
+            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(2)} PWR`;
             const crown = index === 0 ? '👑 ' : '';
             
             li.innerHTML = `
@@ -418,7 +418,7 @@ class GameApp {
                 li.style.boxShadow = '0 0 10px var(--neon-fire-glow)';
             }
             
-            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
+            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(2)} PWR`;
             const crown = index === 0 ? '👑 ' : '';
             
             li.innerHTML = `
