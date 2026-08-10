@@ -40,6 +40,7 @@ class GameApp {
     showScreen(screenElement) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         screenElement.classList.add('active');
+        sessionStorage.setItem('currentScreen', screenElement.id);
     }
 
     showMenu() {
@@ -62,6 +63,8 @@ class GameApp {
             return;
         }
         this.playerName = name;
+        sessionStorage.setItem('playerName', this.playerName);
+        sessionStorage.setItem('currentGame', this.currentGame);
         
         if (this.currentGame === 1) {
             this.prepareGame1();
@@ -278,4 +281,28 @@ class GameApp {
 
 // Make app instance available globally
 window.app = new GameApp();
-window.app.updateTicker(); // Load ticker on initial load
+
+// Restore session state on refresh
+const savedScreen = sessionStorage.getItem('currentScreen');
+const savedPlayer = sessionStorage.getItem('playerName');
+const savedGame = sessionStorage.getItem('currentGame');
+
+if (savedPlayer) window.app.playerName = savedPlayer;
+if (savedGame) window.app.currentGame = parseInt(savedGame);
+
+if (savedScreen === 'game1-screen' && savedPlayer) {
+    window.app.prepareGame1();
+} else if (savedScreen === 'game2-screen' && savedPlayer) {
+    window.app.prepareGame2();
+} else if (savedScreen === 'name-screen') {
+    window.app.playerNameInput.value = savedPlayer || '';
+    window.app.showScreen(window.app.nameScreen);
+} else if (savedScreen === 'leaderboard-screen') {
+    if (savedGame) {
+        window.app.showLeaderboard(window.app.currentGame, true);
+    } else {
+        window.app.showMenu();
+    }
+} else {
+    window.app.updateTicker(); // Load ticker on initial load
+}
