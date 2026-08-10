@@ -27,9 +27,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: 
-        radial-gradient(circle at 15% 50%, rgba(255, 42, 42, 0.08), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(255, 123, 0, 0.08), transparent 25%);
 }
 
 #app {
@@ -539,3 +536,191 @@ input[type="text"]:focus {
 .theme-fire .player-display {
     text-shadow: 0 0 10px var(--neon-fire), 0 0 20px var(--neon-fire-glow);
 }
+
+/* =========================================
+   ANIMATED FESTIVAL BACKGROUND
+   ========================================= */
+#animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+    background: #05020a;
+}
+
+.bg-image-layer {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background: url('bg-festival.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.8;
+    animation: panBg 60s ease-in-out infinite alternate;
+}
+
+@keyframes panBg {
+    0% { transform: scale(1.05) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, -2%); }
+}
+
+/* Spotlights */
+.spotlight {
+    position: absolute;
+    bottom: -10%;
+    width: 100px;
+    height: 150vh;
+    background: linear-gradient(to top, rgba(255,255,255,0.3), transparent);
+    border-radius: 50% 50% 0 0;
+    transform-origin: bottom center;
+    filter: blur(10px);
+    opacity: 0.5;
+    mix-blend-mode: screen;
+}
+
+.spotlight-left {
+    left: 20%;
+    animation: sweepLeft 8s ease-in-out infinite alternate;
+}
+
+.spotlight-right {
+    right: 20%;
+    background: linear-gradient(to top, rgba(255,200,0,0.3), transparent);
+    animation: sweepRight 12s ease-in-out infinite alternate;
+}
+
+@keyframes sweepLeft {
+    0% { transform: rotate(-30deg); }
+    100% { transform: rotate(45deg); }
+}
+
+@keyframes sweepRight {
+    0% { transform: rotate(30deg); }
+    100% { transform: rotate(-45deg); }
+}
+
+/* Ferris Wheel */
+.ferris-wheel-container {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 400px;
+    height: 400px;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 15px rgba(255, 150, 0, 0.8));
+    z-index: 3;
+}
+
+.ferris-stand {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 260px solid rgba(20, 10, 5, 0.9);
+    z-index: 1;
+}
+
+.ferris-wheel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 8px solid #ffcc00;
+    box-shadow: 0 0 30px #ff9900, inset 0 0 30px #ff9900;
+    animation: spinWheel 20s linear infinite;
+    z-index: 2;
+}
+
+.ferris-spoke {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #ffcc00;
+    transform-origin: center center;
+    box-shadow: 0 0 10px #ff9900;
+}
+
+.ferris-carriage-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: 3;
+}
+
+.carriage {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 40px;
+    height: 50px;
+    background: linear-gradient(to bottom, #ff0055, #880022);
+    border-radius: 10px 10px 5px 5px;
+    border: 2px solid #ffcc00;
+    box-shadow: 0 0 15px #ff0055;
+    animation: counterSpin 20s linear infinite;
+}
+
+@keyframes spinWheel {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes counterSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.particle {
+    position: absolute;
+    bottom: -10px;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    left: var(--x);
+    box-shadow: 0 0 10px #ffcc00, 0 0 20px #ff9900;
+    animation: floatUp var(--d) linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) scale(2); opacity: 0; }
+}
+
+.overlay-darken {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 5;
+}
+

@@ -9,6 +9,42 @@
     <link href="https://fonts.cdnfonts.com/css/digital-7-mono" rel="stylesheet">
 </head>
 <body>
+    <div id="animated-background">
+        <div class="bg-image-layer"></div>
+        
+        <div class="spotlight spotlight-left"></div>
+        <div class="spotlight spotlight-right"></div>
+        
+        <div class="ferris-wheel-container">
+            <div class="ferris-stand"></div>
+            <div class="ferris-wheel">
+                <div class="ferris-spoke" style="transform: rotate(0deg);"></div>
+                <div class="ferris-spoke" style="transform: rotate(45deg);"></div>
+                <div class="ferris-spoke" style="transform: rotate(90deg);"></div>
+                <div class="ferris-spoke" style="transform: rotate(135deg);"></div>
+                
+                <div class="ferris-carriage-wrap" style="transform: rotate(0deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(45deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(90deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(135deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(180deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(225deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(270deg) translateY(-150px);"><div class="carriage"></div></div>
+                <div class="ferris-carriage-wrap" style="transform: rotate(315deg) translateY(-150px);"><div class="carriage"></div></div>
+            </div>
+        </div>
+
+        <div class="particles">
+            <div class="particle" style="--d: 2s; --x: 10vw;"></div>
+            <div class="particle" style="--d: 5s; --x: 30vw;"></div>
+            <div class="particle" style="--d: 3s; --x: 50vw;"></div>
+            <div class="particle" style="--d: 7s; --x: 65vw;"></div>
+            <div class="particle" style="--d: 4s; --x: 85vw;"></div>
+        </div>
+
+        <div class="overlay-darken"></div>
+    </div>
+    
     <div id="app">
         <!-- Main Menu -->
         <section id="menu-screen" class="screen active">
