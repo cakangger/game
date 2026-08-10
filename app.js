@@ -150,6 +150,41 @@ class GameApp {
         osc.stop(this.audioCtx.currentTime + 0.1);
     }
 
+    playBoxingBell() {
+        if (!this.audioCtx) return;
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        
+        const now = this.audioCtx.currentTime;
+        
+        // Ring 3 times: 0s, 0.4s, 0.8s
+        for (let i = 0; i < 3; i++) {
+            const time = now + (i * 0.4);
+            
+            const osc = this.audioCtx.createOscillator();
+            const gainNode = this.audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, time);
+            
+            gainNode.gain.setValueAtTime(0, time);
+            gainNode.gain.linearRampToValueAtTime(1.5, time + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, time + 0.5);
+            
+            const osc2 = this.audioCtx.createOscillator();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(440, time);
+            osc2.connect(gainNode);
+            osc2.start(time);
+            osc2.stop(time + 0.6);
+            
+            osc.connect(gainNode);
+            gainNode.connect(this.audioCtx.destination);
+            
+            osc.start(time);
+            osc.stop(time + 0.6);
+        }
+    }
+
     startGame() {
         const name = this.playerNameInput.value.trim();
         if (!name) {
@@ -273,6 +308,7 @@ class GameApp {
     async endGame1() {
         this.isPlaying = false;
         this.tickAudio.pause();
+        this.playBoxingBell();
         const elapsed = performance.now() - this.startTime;
         const loopedElapsed = elapsed % 10000;
         const timeInSeconds = loopedElapsed / 1000;
@@ -364,6 +400,7 @@ class GameApp {
     async endGame2() {
         this.isPlaying = false;
         cancelAnimationFrame(this.timerInterval);
+        this.playBoxingBell();
         this.g2Btn.disabled = true;
         
         const finalScore = parseFloat(this.score.toFixed(2));
