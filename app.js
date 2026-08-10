@@ -220,7 +220,11 @@ class GameApp {
         this.g1Btn.disabled = true;
         
         await saveScore(1, this.playerName, this.score);
-        // Removed showLeaderboard to allow player to see their score
+        
+        // Show leaderboard after 5 seconds
+        setTimeout(() => {
+            this.showLeaderboard(1);
+        }, 5000);
     }
 
     // GAME 2 LOGIC
@@ -315,6 +319,12 @@ class GameApp {
         scores.forEach((entry, index) => {
             const li = document.createElement('li');
             li.className = `rank-${index + 1}`;
+            
+            if (entry.name === this.playerName && entry.score === this.score) {
+                li.style.backgroundColor = 'rgba(255, 204, 0, 0.3)';
+                li.style.border = '2px solid var(--neon-fire)';
+                li.style.boxShadow = '0 0 10px var(--neon-fire-glow)';
+            }
             
             const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
             const crown = index === 0 ? '👑 ' : '';
