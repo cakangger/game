@@ -243,13 +243,13 @@ input[type="text"]:focus {
 }
 
 .btn-secondary {
-    background: transparent;
+    background: rgba(0, 0, 0, 0.6);
     color: #a0a0a0;
     border: 1px solid var(--card-border);
 }
 
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
 }
 
