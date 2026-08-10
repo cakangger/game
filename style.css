@@ -81,11 +81,27 @@ body {
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #a0a0a0;
     margin-bottom: 3rem;
     letter-spacing: 2px;
     text-transform: uppercase;
+}
+
+.neon-orange-text {
+    color: #ff9900;
+    text-shadow: 0 0 5px #ff9900, 0 0 15px #ff9900, 0 0 30px #ff6600;
+    font-weight: 700;
+    animation: neonPulseOrange 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulseOrange {
+    from {
+        text-shadow: 0 0 5px #ff9900, 0 0 15px #ff9900, 0 0 30px #ff6600;
+    }
+    to {
+        text-shadow: 0 0 2px #ff9900, 0 0 8px #ff9900, 0 0 15px #ff6600, 0 0 40px #ff3300;
+    }
 }
 
 /* Cards */
