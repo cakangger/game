@@ -67,33 +67,37 @@ body {
     margin-top: -25vh;
     margin-bottom: 0.5rem;
     
-    background: linear-gradient(90deg, 
-        #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b,
-        #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #ffeeaa;
+    background: rgba(20, 20, 0, 0.6);
+    -webkit-text-fill-color: initial;
     
     text-shadow: 
-        0 0 10px rgba(255,255,255,0.6),
-        0 0 20px rgba(255,255,255,0.4),
-        0 0 40px rgba(255,255,255,0.2);
+        0 0 5px #ffcc00,
+        0 0 15px #ffcc00,
+        0 0 30px #ff9900,
+        0 0 60px #ff6600;
         
+    border: 2px solid rgba(255, 204, 0, 0.4);
+    border-radius: 12px;
+    padding: 10px 40px;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3), inset 0 0 20px rgba(255, 204, 0, 0.2);
+    
     z-index: 10;
     position: relative;
     text-align: center;
-    width: 100%;
-    animation: shine 6s linear infinite, ledFlicker 4s infinite alternate;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    animation: ledFlicker 4s infinite alternate;
 }
 
 @keyframes ledFlicker {
     0%, 18%, 22%, 25%, 53%, 57%, 100% {
         opacity: 1;
-        filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        filter: drop-shadow(0 0 15px rgba(255, 204, 0, 0.6));
     }
     20%, 24%, 55% {
-        opacity: 0.3;
+        opacity: 0.4;
         filter: drop-shadow(0 0 0px transparent);
     }
 }
