@@ -56,14 +56,29 @@
         </div>
 
         <div class="fireworks-container">
-            <div class="firework" style="--left: 20%; --top: 25vh; --delay: 0s;"></div>
-            <div class="firework" style="--left: 60%; --top: 15vh; --delay: 1.5s;"></div>
-            <div class="firework" style="--left: 80%; --top: 35vh; --delay: 3s;"></div>
-            <div class="firework" style="--left: 35%; --top: 20vh; --delay: 4.5s;"></div>
+            <div class="firework-wrapper" style="--left: 20%; --top: 25vh; --delay: 0s;">
+                <div class="firework-rocket"></div>
+                <div class="firework-explosion"></div>
+            </div>
+            <div class="firework-wrapper" style="--left: 60%; --top: 15vh; --delay: 1.5s;">
+                <div class="firework-rocket"></div>
+                <div class="firework-explosion"></div>
+            </div>
+            <div class="firework-wrapper" style="--left: 80%; --top: 35vh; --delay: 3s;">
+                <div class="firework-rocket"></div>
+                <div class="firework-explosion"></div>
+            </div>
+            <div class="firework-wrapper" style="--left: 35%; --top: 20vh; --delay: 4.5s;">
+                <div class="firework-rocket"></div>
+                <div class="firework-explosion"></div>
+            </div>
         </div>
 
         <div class="overlay-darken"></div>
     </div>
+
+    <!-- Background Audio (Placeholder URLs) -->
+    <audio id="bg-audio" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Crowd_cheering.ogg" loop autoplay preload="auto"></audio>
     
     <div id="app">
         <!-- Main Menu -->

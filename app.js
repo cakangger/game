@@ -11,6 +11,15 @@ class GameApp {
         this.startTime = 0;
         this.timerInterval = null;
         
+        // Audio
+        this.tickAudio = new Audio('https://upload.wikimedia.org/wikipedia/commons/d/d4/Clock-ticking.ogg');
+        this.tickAudio.loop = true;
+        
+        document.body.addEventListener('click', () => {
+            const bgAudio = document.getElementById('bg-audio');
+            if (bgAudio) bgAudio.play().catch(e => console.log('Autoplay prevented until interaction.'));
+        }, { once: true });
+        
         // Screens
         this.menuScreen = document.getElementById('menu-screen');
         this.nameScreen = document.getElementById('name-screen');
@@ -82,7 +91,8 @@ class GameApp {
     resetGameState() {
         this.isPlaying = false;
         this.score = 0;
-        clearInterval(this.timerInterval);
+        if (this.timerInterval) cancelAnimationFrame(this.timerInterval);
+        if (this.tickAudio) this.tickAudio.pause();
     }
 
     initializeLiveLeaderboards() {
@@ -141,6 +151,9 @@ class GameApp {
         this.startTime = performance.now();
         this.g1Btn.innerText = 'STOP!';
         
+        this.tickAudio.currentTime = 0;
+        this.tickAudio.play().catch(e => console.log('Audio play failed', e));
+        
         const updateTimer = () => {
             if (!this.isPlaying) return;
             const elapsed = performance.now() - this.startTime;
@@ -166,6 +179,7 @@ class GameApp {
 
     async endGame1() {
         this.isPlaying = false;
+        this.tickAudio.pause();
         const elapsed = performance.now() - this.startTime;
         const timeInSeconds = elapsed / 1000;
         this.g1Timer.innerText = timeInSeconds.toFixed(3);

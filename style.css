@@ -777,22 +777,26 @@ input[type="text"]:focus {
     z-index: 2;
 }
 
-.firework {
+.firework-wrapper {
     position: absolute;
     left: var(--left);
     top: 100vh;
+    animation: fireworkWrapper 4s ease-out infinite;
+    animation-delay: var(--delay);
+}
+
+.firework-rocket {
+    position: absolute;
     width: 4px; height: 4px;
     background: #fff;
     border-radius: 50%;
     box-shadow: 0 0 10px 2px rgba(255, 200, 0, 1);
-    animation: fireworkShoot 4s ease-out infinite;
+    animation: fireworkRocket 4s ease-out infinite;
     animation-delay: var(--delay);
 }
 
-.firework::after {
-    content: "";
+.firework-explosion {
     position: absolute;
-    top: 0; left: 0;
     width: 4px; height: 4px;
     border-radius: 50%;
     animation: fireworkExplode 4s ease-out infinite;
@@ -800,11 +804,17 @@ input[type="text"]:focus {
     opacity: 0;
 }
 
-@keyframes fireworkShoot {
-    0% { top: 100vh; opacity: 1; transform: scale(1); }
-    40% { top: var(--top); opacity: 1; transform: scale(1); }
-    42% { top: var(--top); opacity: 0; transform: scale(0); }
-    100% { top: var(--top); opacity: 0; transform: scale(0); }
+@keyframes fireworkWrapper {
+    0% { top: 100vh; }
+    40% { top: var(--top); }
+    100% { top: var(--top); }
+}
+
+@keyframes fireworkRocket {
+    0% { opacity: 1; transform: scale(1); }
+    40% { opacity: 1; transform: scale(1); }
+    42% { opacity: 0; transform: scale(0); }
+    100% { opacity: 0; transform: scale(0); }
 }
 
 @keyframes fireworkExplode {
