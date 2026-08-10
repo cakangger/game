@@ -720,7 +720,114 @@ input[type="text"]:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.75);
     z-index: 5;
+}
+
+
+/* Rollercoaster */
+.rollercoaster-container {
+    position: absolute;
+    bottom: 5%;
+    left: -10%;
+    width: 600px;
+    height: 300px;
+    z-index: 3;
+    opacity: 0.9;
+}
+.coaster-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px #00d4ff);
+}
+.coaster-train {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.coaster-car {
+    position: absolute;
+    top: 0; left: 0;
+    width: 25px;
+    height: 15px;
+    background: #ff007b;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 10px #ff007b, inset 0 0 5px #fff;
+    offset-path: path("M -50 250 Q 150 250 250 50 T 450 150 T 700 250");
+    animation: rideCoaster 4s linear infinite;
+    offset-rotate: auto;
+}
+
+@keyframes rideCoaster {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+}
+
+/* Fireworks */
+.fireworks-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.firework {
+    position: absolute;
+    left: var(--left);
+    top: 100vh;
+    width: 4px; height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 200, 0, 1);
+    animation: fireworkShoot 4s ease-out infinite;
+    animation-delay: var(--delay);
+}
+
+.firework::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    animation: fireworkExplode 4s ease-out infinite;
+    animation-delay: var(--delay);
+    opacity: 0;
+}
+
+@keyframes fireworkShoot {
+    0% { top: 100vh; opacity: 1; transform: scale(1); }
+    40% { top: var(--top); opacity: 1; transform: scale(1); }
+    42% { top: var(--top); opacity: 0; transform: scale(0); }
+    100% { top: var(--top); opacity: 0; transform: scale(0); }
+}
+
+@keyframes fireworkExplode {
+    0% { opacity: 0; box-shadow: none; transform: scale(1); }
+    40% { opacity: 0; box-shadow: none; transform: scale(1); }
+    42% {
+        opacity: 1;
+        box-shadow: 
+            -30px -30px 0 0 #ff007b, 30px -30px 0 0 #00d4ff,
+            -30px 30px 0 0 #ffcc00, 30px 30px 0 0 #ff2a2a,
+            -45px 0 0 0 #00ff40, 45px 0 0 0 #8a2be2,
+            0 -45px 0 0 #ff7a00, 0 45px 0 0 #fff;
+        transform: scale(0.5);
+    }
+    60% {
+        opacity: 0;
+        box-shadow: 
+            -80px -80px 0 -2px #ff007b, 80px -80px 0 -2px #00d4ff,
+            -80px 80px 0 -2px #ffcc00, 80px 80px 0 -2px #ff2a2a,
+            -100px 0 0 -2px #00ff40, 100px 0 0 -2px #8a2be2,
+            0 -100px 0 -2px #ff7a00, 0 100px 0 -2px #fff;
+        transform: scale(1.5);
+    }
+    100% { opacity: 0; }
 }
 
