@@ -119,7 +119,7 @@
                 <div class="card-container">
                     <div class="card card-fire" onclick="app.selectGame(2)">
                         <h2>Game 2</h2>
-                        <p>Clicker 1-100</p>
+                        <p>High Striker</p>
                         <div class="neon-line fire"></div>
                     </div>
                     <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(2, true)">View Leaderboard</button>
@@ -158,15 +158,26 @@
             <button class="btn btn-massive btn-red-glow" id="game1-btn" onclick="app.clickGame1()">CLICK!</button>
         </section>
 
-        <!-- Game 2 Screen (Clicker 1-100) -->
+        <!-- Game 2 Screen (High Striker) -->
         <section id="game2-screen" class="screen game-screen theme-fire">
             <div class="game-header">
                 <button class="btn-back" onclick="app.showMenu()">&#9664; Back</button>
                 <div class="player-display" id="game2-player-name">Player Name</div>
             </div>
-            <div class="timer-display neon-fire" id="game2-timer">0.000</div>
-            <div class="score-display">Progress: <span id="game2-score">0</span> / 100</div>
-            <button class="btn btn-massive btn-fire-glow" id="game2-btn" onclick="app.clickGame2()">CLICK!</button>
+            
+            <div class="striker-container">
+                <div class="striker-bell" id="striker-bell">100</div>
+                <div class="striker-track">
+                    <div class="striker-puck" id="striker-puck"></div>
+                    <div class="striker-marker" style="bottom: 20%;">20</div>
+                    <div class="striker-marker" style="bottom: 40%;">40</div>
+                    <div class="striker-marker" style="bottom: 60%;">60</div>
+                    <div class="striker-marker" style="bottom: 80%;">80</div>
+                </div>
+                <div class="striker-score-display neon-fire">Power: <span id="game2-score-val">0.00</span></div>
+            </div>
+
+            <button class="btn btn-massive btn-fire-glow" id="game2-btn" onclick="app.strikeGame2()">STRIKE!</button>
         </section>
 
         <!-- Leaderboard Screen -->

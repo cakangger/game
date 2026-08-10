@@ -287,60 +287,88 @@ class GameApp {
         }, 5000);
     }
 
-    // GAME 2 LOGIC
+    // GAME 2 LOGIC (High Striker)
     prepareGame2() {
         this.resetGameState();
+        this.g2PlayerName = document.getElementById('game2-player-name');
         this.g2PlayerName.innerText = 'PLAYER READY: ' + this.playerName;
-        this.g2Timer.innerText = '0.000';
-        this.g2Score.innerText = '0';
-        this.g2Btn.innerText = 'CLICK TO START';
+        
+        this.strikerScoreVal = document.getElementById('game2-score-val');
+        this.strikerScoreVal.innerText = '0.00';
+        
+        this.strikerPuck = document.getElementById('striker-puck');
+        this.strikerPuck.style.bottom = '0%';
+        
+        this.strikerBell = document.getElementById('striker-bell');
+        this.strikerBell.classList.remove('ring');
+        
+        this.g2Btn = document.getElementById('game2-btn');
+        this.g2Btn.innerText = 'START!';
         this.g2Btn.disabled = false;
+        
         this.showScreen(this.game2Screen);
     }
 
     startTimerGame2() {
         this.isPlaying = true;
         this.startTime = performance.now();
-        this.g2Btn.innerText = 'CLICK!';
+        this.g2Btn.innerText = 'STRIKE!';
 
-        const updateTimer = () => {
+        const updateStriker = () => {
             if (!this.isPlaying) return;
             const elapsed = performance.now() - this.startTime;
-            this.g2Timer.innerText = (elapsed / 1000).toFixed(3);
-            this.timerInterval = requestAnimationFrame(updateTimer);
+            
+            // Triangle wave logic (0 to 100 to 0) over 1200ms
+            const period = 1200; 
+            // Sine wave for smoother acceleration/deceleration
+            const power = (Math.sin((elapsed / period) * Math.PI * 2 - (Math.PI / 2)) + 1) / 2 * 100;
+
+            this.score = power;
+            this.strikerScoreVal.innerText = power.toFixed(2);
+            this.strikerPuck.style.bottom = `${power}%`;
+
+            if (power > 99.0) {
+                this.strikerBell.classList.add('ring');
+            } else {
+                this.strikerBell.classList.remove('ring');
+            }
+
+            this.timerInterval = requestAnimationFrame(updateStriker);
         };
         
-        this.timerInterval = requestAnimationFrame(updateTimer);
+        this.timerInterval = requestAnimationFrame(updateStriker);
     }
 
-    clickGame2() {
-        if (this.score >= 100) return; // Prevent extra clicks
-
+    strikeGame2() {
         if (!this.isPlaying) {
             this.startTimerGame2();
+            return;
         }
         
-        this.score++;
-        this.g2Score.innerText = this.score;
-
-        // Add click animation
+        // Add click animation to button
         this.g2Btn.style.transform = 'scale(0.9)';
         setTimeout(() => this.g2Btn.style.transform = 'scale(1)', 50);
-
-        if (this.score >= 100) {
-            this.endGame2();
-        }
+        
+        this.endGame2();
     }
 
     async endGame2() {
         this.isPlaying = false;
-        const elapsed = performance.now() - this.startTime;
-        const timeInSeconds = parseFloat((elapsed / 1000).toFixed(3));
-        this.g2Timer.innerText = timeInSeconds.toFixed(3);
+        cancelAnimationFrame(this.timerInterval);
         this.g2Btn.disabled = true;
+        
+        const finalScore = parseFloat(this.score.toFixed(2));
+        this.strikerScoreVal.innerText = finalScore.toFixed(2);
+        
+        if (finalScore >= 98.0) {
+            this.strikerBell.classList.add('ring');
+        }
 
-        await saveScore(2, this.playerName, timeInSeconds);
-        this.showLeaderboard(2);
+        await saveScore(2, this.playerName, finalScore);
+        
+        setTimeout(() => {
+            this.showLeaderboard(2);
+        }, 3000); // 3 second delay to see score
     }
 
     // LEADERBOARD LOGIC
@@ -348,7 +376,7 @@ class GameApp {
         this.showScreen(this.leaderboardScreen);
         
         const title = document.getElementById('leaderboard-title');
-        title.innerText = gameId === 1 ? 'Most Accurate (Difference from 10s)' : 'Fastest Times (100 Clicks)';
+        title.innerText = gameId === 1 ? 'Most Accurate (Difference from 10s)' : 'Highest Power (Max 100)';
         title.style.color = gameId === 1 ? 'var(--neon-red)' : 'var(--neon-fire)';
         title.style.textShadow = `0 0 10px ${gameId === 1 ? 'var(--neon-red-glow)' : 'var(--neon-fire-glow)'}`;
         

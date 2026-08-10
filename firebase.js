@@ -58,7 +58,7 @@ window.getLeaderboard = async function(gameId) {
 
     try {
         const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
-        const sortDirection = 'asc'; // Both games want the lowest score now (closest to 10s, or lowest time)
+        const sortDirection = gameId === 1 ? 'asc' : 'desc';
         
         const querySnapshot = await db.collection(collectionName)
             .orderBy('score', sortDirection)
@@ -87,7 +87,7 @@ window.subscribeLeaderboard = function(gameId, callback) {
     }
 
     const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
-    const sortDirection = 'asc';
+    const sortDirection = gameId === 1 ? 'asc' : 'desc';
     
     return db.collection(collectionName)
         .orderBy('score', sortDirection)
