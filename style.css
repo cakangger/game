@@ -66,16 +66,26 @@ body {
     white-space: nowrap;
     margin-top: -25vh;
     margin-bottom: 0.5rem;
-    color: #ffcc00;
+    
+    background: linear-gradient(90deg, 
+        #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b,
+        #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
     text-shadow: 
         3px 3px 0 #cc0055, 
         6px 6px 0 #880022, 
         0 0 15px #ff0055,
         0 0 30px #ffcc00;
+        
     z-index: 10;
     position: relative;
     text-align: center;
     width: 100%;
+    animation: shine 6s linear infinite;
 }
 
 @keyframes shine {
