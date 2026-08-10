@@ -21,7 +21,8 @@ class GameApp {
         // Elements
         this.playerNameInput = document.getElementById('player-name');
         this.nameGameTitle = document.getElementById('name-game-title');
-        this.menuTicker = document.getElementById('menu-ticker');
+        this.liveListG1 = document.getElementById('live-list-g1');
+        this.liveListG2 = document.getElementById('live-list-g2');
         
         // Game 1
         this.g1Timer = document.getElementById('game1-timer');
@@ -84,38 +85,43 @@ class GameApp {
         clearInterval(this.timerInterval);
     }
 
-    async updateTicker() {
-        if (!this.menuTicker) return;
-        
-        try {
-            const g1Scores = await window.getLeaderboard(1);
-            const g2Scores = await window.getLeaderboard(2);
-            
-            let tickerHtml = '';
-            
-            if (g1Scores && g1Scores.length > 0) {
-                tickerHtml += `<span class="ticker-text ticker-g1">🏆 GAME 1 TOP PLAYERS: `;
-                const names = g1Scores.slice(0, 5).map((s, i) => `#${i+1} ${s.name} (${s.score.toFixed(3)}s off)`).join(' 🔹 ');
-                tickerHtml += names + `</span><span class="ticker-sep">||</span>`;
-            }
-            
-            if (g2Scores && g2Scores.length > 0) {
-                tickerHtml += `<span class="ticker-text ticker-g2">🔥 GAME 2 TOP PLAYERS: `;
-                const names = g2Scores.slice(0, 5).map((s, i) => `#${i+1} ${s.name} (${s.score.toFixed(3)}s)`).join(' 🔹 ');
-                tickerHtml += names + `</span><span class="ticker-sep">||</span>`;
-            }
-            
-            if (tickerHtml === '') {
-                tickerHtml = '<span class="ticker-text">BE THE FIRST TO SET A RECORD IN THE FESTIVAL DATABASE!</span>';
-            } else {
-                // Duplicate it a few times so the scrolling is continuous
-                tickerHtml = tickerHtml + tickerHtml + tickerHtml + tickerHtml;
-            }
-            
-            this.menuTicker.innerHTML = tickerHtml;
-        } catch (e) {
-            console.error("Error updating ticker", e);
+    initializeLiveLeaderboards() {
+        if (!this.liveListG1 || !this.liveListG2) return;
+
+        if (typeof window.subscribeLeaderboard !== 'function') {
+            console.error("subscribeLeaderboard not found in firebase.js");
+            return;
         }
+
+        // Subscribe to Game 1
+        window.subscribeLeaderboard(1, (scores) => {
+            this.renderLiveList(this.liveListG1, scores, 1);
+        });
+
+        // Subscribe to Game 2
+        window.subscribeLeaderboard(2, (scores) => {
+            this.renderLiveList(this.liveListG2, scores, 2);
+        });
+    }
+
+    renderLiveList(listElement, scores, gameId) {
+        listElement.innerHTML = ''; // Clear current list
+
+        if (scores.length === 0) {
+            listElement.innerHTML = '<li class="live-placeholder">Waiting for players to submit scores...</li>';
+            return;
+        }
+
+        scores.forEach((entry, index) => {
+            const li = document.createElement('li');
+            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
+            
+            li.innerHTML = `
+                <span class="name">#${index + 1} ${entry.name}</span>
+                <span class="score">${scoreText}</span>
+            `;
+            listElement.appendChild(li);
+        });
     }
 
     // GAME 1 LOGIC
@@ -304,5 +310,5 @@ if (savedScreen === 'game1-screen' && savedPlayer) {
         window.app.showMenu();
     }
 } else {
-    window.app.updateTicker(); // Load ticker on initial load
+    window.app.initializeLiveLeaderboards(); // Load live split leaderboards on initial load
 }

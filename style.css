@@ -370,71 +370,104 @@ input[type="text"]:focus {
     gap: 1rem;
 }
 
-/* Stats Ticker */
-.stats-ticker-wrapper {
+/* Live Split Leaderboards */
+.live-leaderboards-wrapper {
     width: 100%;
     margin-top: 4rem;
-    overflow: hidden;
-    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
     background: rgba(0, 0, 0, 0.4);
     border-top: 1px solid var(--card-border);
     border-bottom: 1px solid var(--card-border);
-    padding: 1rem 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(5px);
 }
 
-.stats-ticker-wrapper::before, .stats-ticker-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    z-index: 2;
+.live-board {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    height: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
-.stats-ticker-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, var(--bg-color), transparent);
+.live-board-red {
+    border-top: 2px solid var(--neon-red);
+    box-shadow: 0 -5px 15px rgba(255, 42, 42, 0.2);
 }
 
-.stats-ticker-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, var(--bg-color), transparent);
+.live-board-fire {
+    border-top: 2px solid var(--neon-fire);
+    box-shadow: 0 -5px 15px rgba(255, 140, 0, 0.2);
 }
 
-.stats-ticker {
-    display: inline-block;
-    white-space: nowrap;
-    animation: ticker-scroll 25s linear infinite;
-    font-size: 1.2rem;
+.live-board-header {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
     font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.ticker-text {
-    padding-right: 50px;
+.live-badge {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+    box-shadow: 0 0 8px red;
+    animation: blink 1.5s infinite;
 }
 
-.ticker-g1 {
-    color: var(--neon-red);
-    text-shadow: 0 0 8px var(--neon-red-glow);
+@keyframes blink {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
 }
 
-.ticker-g2 {
-    color: var(--neon-fire);
-    text-shadow: 0 0 8px var(--neon-fire-glow);
+.live-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.ticker-sep {
-    color: #fff;
-    margin: 0 1rem;
-    opacity: 0.5;
+.live-list li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.8rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@keyframes ticker-scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+.live-list li.live-placeholder {
+    justify-content: center;
+    color: #888;
+    background: transparent;
+    font-style: italic;
+    animation: none;
+}
+
+.live-board-red .live-list li .name { color: var(--neon-red); text-shadow: 0 0 5px var(--neon-red-glow); font-weight: 700; }
+.live-board-fire .live-list li .name { color: var(--neon-fire); text-shadow: 0 0 5px var(--neon-fire-glow); font-weight: 700; }
+
+@keyframes slideIn {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 /* Game Header */

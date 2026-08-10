@@ -76,3 +76,29 @@ window.getLeaderboard = async function(gameId) {
         return [];
     }
 };
+
+/**
+ * Subscribe to real-time leaderboard updates
+ */
+window.subscribeLeaderboard = function(gameId, callback) {
+    if (!db) {
+        console.warn("Database not initialized. Cannot subscribe.");
+        return () => {}; // return empty unsubscribe function
+    }
+
+    const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
+    const sortDirection = 'asc';
+    
+    return db.collection(collectionName)
+        .orderBy('score', sortDirection)
+        .limit(10)
+        .onSnapshot((querySnapshot) => {
+            const scores = [];
+            querySnapshot.forEach((doc) => {
+                scores.push(doc.data());
+            });
+            callback(scores);
+        }, (error) => {
+            console.error("Error listening to leaderboard: ", error);
+        });
+};
