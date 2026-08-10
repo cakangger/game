@@ -17,8 +17,13 @@ class GameApp {
         
         document.body.addEventListener('click', () => {
             const bgAudio = document.getElementById('bg-audio');
-            if (bgAudio) bgAudio.play().catch(e => console.log('Autoplay prevented until interaction.'));
+            if (bgAudio) {
+                bgAudio.play().catch(e => console.log('Autoplay prevented until interaction.'));
+            }
         }, { once: true });
+        
+        // Audio UI setup
+        this.setupAudioControls();
         
         // Screens
         this.menuScreen = document.getElementById('menu-screen');
@@ -64,6 +69,29 @@ class GameApp {
         this.nameGameTitle.innerText = gameId === 1 ? 'Game 1: Exact 10 Seconds' : 'Game 2: Clicker 1-100';
         this.playerNameInput.value = '';
         this.showScreen(this.nameScreen);
+    }
+
+    setupAudioControls() {
+        const bgAudio = document.getElementById('bg-audio');
+        const audioToggle = document.getElementById('audio-toggle');
+        const volumeSlider = document.getElementById('volume-slider');
+        
+        if (!bgAudio || !audioToggle || !volumeSlider) return;
+        
+        audioToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // prevent document body click
+            if (bgAudio.paused) {
+                bgAudio.play();
+                audioToggle.innerText = '🔊';
+            } else {
+                bgAudio.pause();
+                audioToggle.innerText = '🔇';
+            }
+        });
+        
+        volumeSlider.addEventListener('input', (e) => {
+            bgAudio.volume = e.target.value;
+        });
     }
 
     startGame() {
@@ -192,7 +220,7 @@ class GameApp {
         this.g1Btn.disabled = true;
         
         await saveScore(1, this.playerName, this.score);
-        this.showLeaderboard(1);
+        // Removed showLeaderboard to allow player to see their score
     }
 
     // GAME 2 LOGIC
