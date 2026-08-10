@@ -58,15 +58,14 @@ body {
 }
 
 .glow-title {
-    font-family: 'Bungee Shade', cursive;
-    font-size: 5vw;
-    font-weight: normal;
+    font-family: 'Samsung Sans Regular', 'Samsung Sans', 'Outfit', sans-serif;
+    font-size: 4.5vw;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
     white-space: nowrap;
     margin-top: -25vh;
     margin-bottom: 0.5rem;
-    
     background: linear-gradient(90deg, 
         #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b,
         #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b
@@ -74,13 +73,7 @@ body {
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    
-    text-shadow: 
-        3px 3px 0 #cc0055, 
-        6px 6px 0 #880022, 
-        0 0 15px #ff0055,
-        0 0 30px #ffcc00;
-        
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
     z-index: 10;
     position: relative;
     text-align: center;
