@@ -513,10 +513,16 @@ input[type="text"]:focus {
 .game-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
     padding: 2rem 3rem 0;
     box-sizing: border-box;
+}
+
+.btn-back-floating {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
 }
 
 /* Game Content */
