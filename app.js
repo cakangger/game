@@ -12,7 +12,7 @@ class GameApp {
         this.timerInterval = null;
         
         // Audio
-        this.tickAudio = new Audio('https://upload.wikimedia.org/wikipedia/commons/d/d4/Clock-ticking.ogg');
+        this.tickAudio = new Audio('./tick.ogg');
         this.tickAudio.loop = true;
         
         document.body.addEventListener('click', () => {
