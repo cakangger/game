@@ -15,26 +15,7 @@
             <h1 class="glow-title">Great Festival</h1>
             <p class="subtitle">Welcome to the Neon Arcade</p>
             <div class="menu-options">
-                <div class="card-container">
-                    <div class="card card-red" onclick="app.selectGame(1)">
-                        <h2>Game 1</h2>
-                        <p>Exact 10 Seconds</p>
-                        <div class="neon-line red"></div>
-                    </div>
-                    <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(1, true)">View Leaderboard</button>
-                </div>
-                <div class="card-container">
-                    <div class="card card-fire" onclick="app.selectGame(2)">
-                        <h2>Game 2</h2>
-                        <p>Clicker 1-100</p>
-                        <div class="neon-line fire"></div>
-                    </div>
-                    <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(2, true)">View Leaderboard</button>
-                </div>
-            </div>
-
-            <!-- Live Split Leaderboards -->
-            <div class="live-leaderboards-wrapper">
+                <!-- Leaderboard Game 1 (Left) -->
                 <div class="live-board live-board-red">
                     <div class="live-board-header">
                         <span class="live-badge"></span>LIVE - Game 1
@@ -43,7 +24,28 @@
                         <li class="live-placeholder">Connecting to data stream...</li>
                     </ul>
                 </div>
-                
+
+                <!-- Game 1 Card -->
+                <div class="card-container">
+                    <div class="card card-red" onclick="app.selectGame(1)">
+                        <h2>Game 1</h2>
+                        <p>Exact 10 Seconds</p>
+                        <div class="neon-line red"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(1, true)">View Leaderboard</button>
+                </div>
+
+                <!-- Game 2 Card -->
+                <div class="card-container">
+                    <div class="card card-fire" onclick="app.selectGame(2)">
+                        <h2>Game 2</h2>
+                        <p>Clicker 1-100</p>
+                        <div class="neon-line fire"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="app.showLeaderboard(2, true)">View Leaderboard</button>
+                </div>
+
+                <!-- Leaderboard Game 2 (Right) -->
                 <div class="live-board live-board-fire">
                     <div class="live-board-header">
                         <span class="live-badge"></span>LIVE - Game 2

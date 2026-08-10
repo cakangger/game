@@ -115,9 +115,10 @@ class GameApp {
         scores.forEach((entry, index) => {
             const li = document.createElement('li');
             const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
+            const crown = index === 0 ? '👑 ' : '';
             
             li.innerHTML = `
-                <span class="name">#${index + 1} ${entry.name}</span>
+                <span class="name">#${index + 1} ${crown}${entry.name}</span>
                 <span class="score">${scoreText}</span>
             `;
             listElement.appendChild(li);
@@ -274,10 +275,11 @@ class GameApp {
             li.className = `rank-${index + 1}`;
             
             const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
+            const crown = index === 0 ? '👑 ' : '';
             
             li.innerHTML = `
                 <span class="rank">#${index + 1}</span>
-                <span class="name">${entry.name}</span>
+                <span class="name">${crown}${entry.name}</span>
                 <span class="score">${scoreText}</span>
             `;
             list.appendChild(li);
