@@ -58,11 +58,11 @@ body {
 }
 
 .glow-title {
-    font-family: 'Aurora', cursive;
+    font-family: 'Castellar', serif;
     font-size: 6vw;
     font-weight: 900;
-    text-transform: none;
-    letter-spacing: 2px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
     white-space: nowrap;
     margin-top: -25vh;
     margin-bottom: 0.5rem;
