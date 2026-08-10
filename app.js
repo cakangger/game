@@ -64,15 +64,19 @@ class GameApp {
     }
 
     // Navigation
-    showScreen(screenElement) {
+    showScreen(screenElement, pushHistory = true) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         screenElement.classList.add('active');
         sessionStorage.setItem('currentScreen', screenElement.id);
+        
+        if (pushHistory) {
+            history.pushState({ screen: screenElement.id }, '');
+        }
     }
 
-    showMenu() {
+    showMenu(pushHistory = true) {
         this.resetGameState();
-        this.showScreen(this.menuScreen);
+        this.showScreen(this.menuScreen, pushHistory);
         this.updateTicker();
     }
 
@@ -458,3 +462,16 @@ if (savedScreen === 'game1-screen' && savedPlayer) {
 } else {
     window.app.initializeLiveLeaderboards(); // Load live split leaderboards on initial load
 }
+
+// Handle Browser Back Button Navigation
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.screen) {
+        const screen = document.getElementById(event.state.screen);
+        if (screen) {
+            window.app.showScreen(screen, false);
+            return;
+        }
+    }
+    // Fallback to menu if no state
+    window.app.showMenu(false);
+});
