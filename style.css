@@ -520,8 +520,8 @@ input[type="text"]:focus {
 
 .btn-back-floating {
     position: fixed;
-    top: 2rem;
-    left: 2rem;
+    bottom: 80px;
+    left: 20px;
     z-index: 100;
 }
 
