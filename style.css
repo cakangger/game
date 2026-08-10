@@ -539,8 +539,9 @@ input[type="text"]:focus {
 
 .btn-back {
     position: fixed;
-    bottom: 85px;
-    left: 30px;
+    top: 20px;
+    left: 20px;
+    bottom: auto;
     background: transparent;
     color: #a0a0a0;
     border: none;
