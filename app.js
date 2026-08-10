@@ -279,8 +279,8 @@ class GameApp {
         
         this.g1Timer.innerText = timeInSeconds.toFixed(3);
         
-        // Difference from the closest 10-second mark (0 or 10)
-        const difference = Math.min(timeInSeconds, 10 - timeInSeconds);
+        // Difference from 10.000 seconds
+        const difference = 10 - timeInSeconds;
         this.score = parseFloat(difference.toFixed(3));
         const rawTime = parseFloat(timeInSeconds.toFixed(3));
         
