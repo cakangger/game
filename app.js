@@ -249,8 +249,9 @@ class GameApp {
         const updateTimer = () => {
             if (!this.isPlaying) return;
             const elapsed = performance.now() - this.startTime;
+            const loopedElapsed = elapsed % 10000;
             
-            this.g1Timer.innerText = (elapsed / 1000).toFixed(3);
+            this.g1Timer.innerText = (loopedElapsed / 1000).toFixed(3);
             this.timerInterval = requestAnimationFrame(updateTimer);
         };
         
@@ -273,11 +274,13 @@ class GameApp {
         this.isPlaying = false;
         this.tickAudio.pause();
         const elapsed = performance.now() - this.startTime;
-        const timeInSeconds = elapsed / 1000;
+        const loopedElapsed = elapsed % 10000;
+        const timeInSeconds = loopedElapsed / 1000;
+        
         this.g1Timer.innerText = timeInSeconds.toFixed(3);
         
-        // Calculate absolute difference from 10.000 seconds
-        const difference = Math.abs(10 - timeInSeconds);
+        // Difference from the closest 10-second mark (0 or 10)
+        const difference = Math.min(timeInSeconds, 10 - timeInSeconds);
         this.score = parseFloat(difference.toFixed(3));
         const rawTime = parseFloat(timeInSeconds.toFixed(3));
         
