@@ -58,27 +58,44 @@ body {
 }
 
 .glow-title {
-    font-family: 'SamsungOne', 'Samsung Sans Regular', 'Samsung Sans', 'Outfit', sans-serif;
-    font-size: 4vw;
-    font-weight: 900;
+    font-family: 'Digital-7', 'Digital-7 Mono', monospace;
+    font-size: 6vw;
+    font-weight: normal;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 8px;
     white-space: nowrap;
     margin-top: -25vh;
     margin-bottom: 0.5rem;
-    background: linear-gradient(90deg, 
-        #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b,
-        #ff2a2a, #ff7a00, #ffc800, #00ff40, #00d4ff, #8a2be2, #ff007b
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    color: #ff1a1a;
+    background: none;
+    -webkit-text-fill-color: initial;
+    text-shadow: 
+        0 0 5px #ff1a1a,
+        0 0 15px #ff0000,
+        0 0 30px #ff0000,
+        0 0 60px #cc0000,
+        0 0 100px #990000;
     z-index: 10;
     position: relative;
     text-align: center;
     width: 100%;
-    animation: shine 6s linear infinite;
+    animation: ledFlicker 4s infinite alternate;
+}
+
+@keyframes ledFlicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 
+            0 0 5px #ff1a1a,
+            0 0 15px #ff0000,
+            0 0 30px #ff0000,
+            0 0 60px #cc0000,
+            0 0 100px #990000;
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        opacity: 0.3;
+    }
 }
 
 @keyframes shine {
