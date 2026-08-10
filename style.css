@@ -58,11 +58,11 @@ body {
 }
 
 .glow-title {
-    font-family: 'Samsung Sans Regular', 'Samsung Sans', 'Outfit', sans-serif;
-    font-size: 4.5vw;
+    font-family: 'Aurora', cursive;
+    font-size: 6vw;
     font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 4px;
+    text-transform: none;
+    letter-spacing: 2px;
     white-space: nowrap;
     margin-top: -25vh;
     margin-bottom: 0.5rem;
