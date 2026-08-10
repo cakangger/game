@@ -152,6 +152,14 @@ class GameApp {
 
         scores.forEach((entry, index) => {
             const li = document.createElement('li');
+            
+            // Top player styling
+            if (index === 0) {
+                li.style.border = '2px solid #ffcc00';
+                li.style.boxShadow = '0 0 10px #ffcc00';
+                li.style.backgroundColor = 'rgba(255, 204, 0, 0.2)';
+            }
+            
             const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(3)}s`;
             const crown = index === 0 ? '👑 ' : '';
             
@@ -320,7 +328,11 @@ class GameApp {
             const li = document.createElement('li');
             li.className = `rank-${index + 1}`;
             
-            if (entry.name === this.playerName && entry.score === this.score) {
+            if (index === 0) {
+                li.style.border = '2px solid #ffcc00';
+                li.style.boxShadow = '0 0 15px #ffcc00';
+                li.style.backgroundColor = 'rgba(255, 204, 0, 0.3)';
+            } else if (entry.name === this.playerName && entry.score === this.score) {
                 li.style.backgroundColor = 'rgba(255, 204, 0, 0.3)';
                 li.style.border = '2px solid var(--neon-fire)';
                 li.style.boxShadow = '0 0 10px var(--neon-fire-glow)';
