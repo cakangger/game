@@ -15,12 +15,24 @@ class GameApp {
         this.tickAudio = new Audio('./tick.ogg');
         this.tickAudio.loop = true;
         
-        document.body.addEventListener('click', () => {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            this.audioCtx = new AudioContext();
+        }
+        
+        document.body.addEventListener('click', (e) => {
             const bgAudio = document.getElementById('bg-audio');
             if (bgAudio) {
-                bgAudio.play().catch(e => console.log('Autoplay prevented until interaction.'));
+                bgAudio.play().catch(err => console.log('Autoplay prevented until interaction.'));
             }
-        }, { once: true });
+            if (e.target.closest('.btn') || e.target.closest('.card') || e.target.closest('.btn-massive') || e.target.closest('.audio-btn')) {
+                this.playClickSound();
+            }
+        });
+        
+        document.querySelectorAll('.card, .btn, .btn-massive, .audio-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => this.playHoverSound());
+        });
         
         // Audio UI setup
         this.setupAudioControls();
@@ -92,6 +104,46 @@ class GameApp {
         volumeSlider.addEventListener('input', (e) => {
             bgAudio.volume = e.target.value;
         });
+    }
+
+    playHoverSound() {
+        if (!this.audioCtx) return;
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        const osc = this.audioCtx.createOscillator();
+        const gainNode = this.audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(400, this.audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, this.audioCtx.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.05, this.audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.1);
+        
+        osc.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+        
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.1);
+    }
+
+    playClickSound() {
+        if (!this.audioCtx) return;
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        const osc = this.audioCtx.createOscillator();
+        const gainNode = this.audioCtx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, this.audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, this.audioCtx.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioCtx.currentTime + 0.1);
+        
+        osc.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+        
+        osc.start();
+        osc.stop(this.audioCtx.currentTime + 0.1);
     }
 
     startGame() {
