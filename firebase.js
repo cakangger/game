@@ -27,7 +27,7 @@ try {
 /**
  * Save a player's score to Firestore
  */
-window.saveScore = async function(gameId, playerName, score) {
+window.saveScore = async function(gameId, playerName, score, rawTime = null) {
     if (!db) {
         console.warn("Database not initialized. Score not saved.");
         return false;
@@ -35,11 +35,15 @@ window.saveScore = async function(gameId, playerName, score) {
     
     try {
         const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
-        await db.collection(collectionName).add({
+        const data = {
             name: playerName,
             score: score,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
+        };
+        if (rawTime !== null) {
+            data.rawTime = rawTime;
+        }
+        await db.collection(collectionName).add(data);
         return true;
     } catch (error) {
         console.error("Error adding document: ", error);

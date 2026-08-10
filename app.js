@@ -216,7 +216,7 @@ class GameApp {
                 li.style.backgroundColor = 'rgba(255, 204, 0, 0.2)';
             }
             
-            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(2)} PWR`;
+            const scoreText = gameId === 1 ? `${(entry.rawTime !== undefined ? entry.rawTime : entry.score).toFixed(3)}s` : `${entry.score.toFixed(2)} PWR`;
             const crown = index === 0 ? '👑 ' : '';
             
             li.innerHTML = `
@@ -279,11 +279,13 @@ class GameApp {
         // Calculate absolute difference from 10.000 seconds
         const difference = Math.abs(10 - timeInSeconds);
         this.score = parseFloat(difference.toFixed(3));
-        this.g1Score.innerText = this.score.toFixed(3);
+        const rawTime = parseFloat(timeInSeconds.toFixed(3));
+        
+        this.g1Score.innerText = rawTime.toFixed(3);
         
         this.g1Btn.disabled = true;
         
-        await saveScore(1, this.playerName, this.score);
+        await saveScore(1, this.playerName, this.score, rawTime);
         
         // Show leaderboard after 5 seconds
         setTimeout(() => {
@@ -380,7 +382,7 @@ class GameApp {
         this.showScreen(this.leaderboardScreen);
         
         const title = document.getElementById('leaderboard-title');
-        title.innerText = gameId === 1 ? 'Most Accurate (Difference from 10s)' : 'Highest Power (Max 100)';
+        title.innerText = gameId === 1 ? 'Closest to 10 Seconds' : 'Highest Power (Max 100)';
         title.style.color = gameId === 1 ? 'var(--neon-red)' : 'var(--neon-fire)';
         title.style.textShadow = `0 0 10px ${gameId === 1 ? 'var(--neon-red-glow)' : 'var(--neon-fire-glow)'}`;
         
@@ -422,7 +424,7 @@ class GameApp {
                 li.style.boxShadow = '0 0 10px var(--neon-fire-glow)';
             }
             
-            const scoreText = gameId === 1 ? `${entry.score.toFixed(3)}s off` : `${entry.score.toFixed(2)} PWR`;
+            const scoreText = gameId === 1 ? `${(entry.rawTime !== undefined ? entry.rawTime : entry.score).toFixed(3)}s` : `${entry.score.toFixed(2)} PWR`;
             const crown = index === 0 ? '👑 ' : '';
             
             li.innerHTML = `
