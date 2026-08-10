@@ -509,17 +509,32 @@ input[type="text"]:focus {
     100% { transform: translateY(0); opacity: 1; }
 }
 
+/* Game Screens */
+.game-screen {
+    text-align: center;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.timer-display {
+    font-size: 6rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px currentColor;
+}
+
 /* Game Header */
 .game-header {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 3rem;
+    padding: 0 3rem;
     box-sizing: border-box;
+    margin-bottom: 2rem;
 }
 
 .btn-back {
