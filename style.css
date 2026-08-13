@@ -1064,8 +1064,8 @@ input[type="text"]:focus {
     font-family: "Outfit", sans-serif;
     letter-spacing: 1px;
     margin-top: 1rem;
-    color: #fff !important;
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px rgba(255, 255, 255, 0.8) !important;
+    color: var(--neon-fire) !important;
+    text-shadow: 0 0 10px var(--neon-fire-glow), 0 0 20px var(--neon-fire), 0 0 30px rgba(255, 140, 0, 0.8) !important;
 }
 
 /* Animated Bunting Flags */
@@ -1499,6 +1499,7 @@ input[type="text"]:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
 }
+
 
 
 
