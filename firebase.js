@@ -106,3 +106,56 @@ window.subscribeLeaderboard = function(gameId, callback) {
             console.error("Error listening to leaderboard: ", error);
         });
 };
+
+/**
+ * Reset all scores for a game (Batch deletion)
+ */
+window.resetLeaderboard = async function(gameId) {
+    if (!db) {
+        console.warn("Database not initialized. Cannot reset.");
+        return false;
+    }
+
+    try {
+        const collectionName = gameId === 1 ? 'leaderboard_game1' : 'leaderboard_game2';
+        const querySnapshot = await db.collection(collectionName).get();
+        
+        // Firestore batch has a limit of 500 writes, but for 5-10 records it's perfectly fine
+        const batch = db.batch();
+        querySnapshot.forEach((doc) => {
+            batch.delete(doc.ref);
+        });
+        
+        await batch.commit();
+        return true;
+    } catch (error) {
+        console.error("Error resetting leaderboard: ", error);
+        return false;
+    }
+};
+
+/**
+ * Verify Admin Credentials
+ */
+window.verifyAdmin = async function(username, password) {
+    if (!db) {
+        console.warn("Database not initialized. Cannot verify admin.");
+        return false;
+    }
+
+    try {
+        const docRef = db.collection('admins').doc(username);
+        const docSnap = await docRef.get();
+        
+        if (docSnap.exists) {
+            const data = docSnap.data();
+            if (data.password === password) {
+                return true;
+            }
+        }
+        return false;
+    } catch (error) {
+        console.error("Error verifying admin: ", error);
+        return false; // Typically fails due to 403 Forbidden if rules are strict
+    }
+};

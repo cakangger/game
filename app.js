@@ -418,6 +418,62 @@ class GameApp {
     }
 
     // LEADERBOARD LOGIC
+    resetLeaderboard() {
+        const modal = document.getElementById("admin-login-modal");
+        if(modal) {
+            modal.style.display = "flex";
+            document.getElementById("admin-username").value = "";
+            document.getElementById("admin-password").value = "";
+            document.getElementById("admin-username").focus();
+        }
+    }
+
+    closeAdminModal() {
+        const modal = document.getElementById("admin-login-modal");
+        if(modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    async submitAdminLogin() {
+        const user = document.getElementById("admin-username").value.trim();
+        const pass = document.getElementById("admin-password").value;
+        const btn = document.getElementById("admin-login-btn");
+
+        if(!user || !pass) {
+            alert("Please enter both username and password.");
+            return;
+        }
+
+        btn.innerText = "Verifying...";
+        btn.disabled = true;
+
+        if (typeof window.verifyAdmin !== "function") {
+            alert("Verification function not found!");
+            this.closeAdminModal();
+            return;
+        }
+
+        const isVerified = await window.verifyAdmin(user, pass);
+        
+        if (isVerified) {
+            btn.innerText = "Resetting Leaderboard...";
+            const success = await window.resetLeaderboard(this.currentGame);
+            if (success) {
+                alert("Leaderboard has been reset successfully!");
+                this.closeAdminModal();
+                this.showLeaderboard(this.currentGame, true);
+            } else {
+                alert("Failed to reset leaderboard. Please try again.");
+            }
+        } else {
+            alert("Invalid Username or Password! Or access blocked by Security Rules.");
+        }
+        
+        btn.innerText = "Login & Reset";
+        btn.disabled = false;
+    }
+
     async showLeaderboard(gameId, fromMenu = false) {
         this.showScreen(this.leaderboardScreen);
         
@@ -517,3 +573,5 @@ window.addEventListener('popstate', (event) => {
     // Fallback to menu if no state
     window.app.showMenu(false);
 });
+
+
