@@ -1507,3 +1507,15 @@ input[type="text"]:focus {
 
 
 
+
+/* Brand Logo */
+.brand-logo {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    width: 150px;
+    height: auto;
+    z-index: 1000;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+    animation: fadeIn 1s ease-out forwards;
+}
