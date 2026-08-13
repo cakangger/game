@@ -1483,6 +1483,10 @@ input[type="text"]:focus {
     background: #f5f5f5;
     color: #333;
     border: 2px solid #ddd;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .modal-content input:focus {
@@ -1490,4 +1494,5 @@ input[type="text"]:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
 }
+
 

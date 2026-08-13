@@ -82,7 +82,7 @@ class GameApp {
 
     selectGame(gameId) {
         this.currentGame = gameId;
-        this.nameGameTitle.innerText = gameId === 1 ? 'Game 1: Exact 10 Seconds' : 'Game 2: STRIKE 100';
+        this.nameGameTitle.innerText = gameId === 1 ? 'MBG: Exact 10 Seconds' : 'BHAP: STRIKE 100';
         this.playerNameInput.value = '';
         this.showScreen(this.nameScreen);
     }
@@ -475,6 +475,7 @@ class GameApp {
     }
 
     async showLeaderboard(gameId, fromMenu = false) {
+        this.currentGame = gameId;
         this.showScreen(this.leaderboardScreen);
         
         const title = document.getElementById('leaderboard-title');
@@ -573,5 +574,7 @@ window.addEventListener('popstate', (event) => {
     // Fallback to menu if no state
     window.app.showMenu(false);
 });
+
+
 
 
