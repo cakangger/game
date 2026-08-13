@@ -645,7 +645,7 @@ input[type="text"]:focus {
     left: -5%;
     width: 110%;
     height: 110%;
-    background: url('bg-kemerdekaan.jpg') no-repeat center center;
+    background: url('bg-kemerdekaan.png') no-repeat center center;
     background-size: cover;
     opacity: 0.8;
     animation: panBg 60s ease-in-out infinite alternate;
@@ -1499,6 +1499,7 @@ input[type="text"]:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
 }
+
 
 
 
