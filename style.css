@@ -1063,6 +1063,7 @@ input[type="text"]:focus {
     font-weight: 900;
     margin-top: 1rem;
     color: #fff !important;
+    -webkit-text-stroke: 2px #d32f2f;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px rgba(255, 255, 255, 0.8) !important;
 }
 
@@ -1497,6 +1498,7 @@ input[type="text"]:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
 }
+
 
 
 
